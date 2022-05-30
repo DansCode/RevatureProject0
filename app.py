@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def root_logic():
-    return render_template("login.html")
+    authToken = request.cookies.get("authToken")
+    return str(type(authToken))
 
 
 if __name__ == "__main__":
