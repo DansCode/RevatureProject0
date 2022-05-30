@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from utilities
+from utilities import dbUtil
 
 app = Flask(__name__)
 
@@ -8,8 +8,20 @@ app = Flask(__name__)
 def root_logic():
     if "authToken" in request.cookies:
         authToken = request.cookies.get("authToken")
+        if dbUtil.checkToken(authToken):
+            return render_template("board.html")
 
-    return "lol"+str(type(authToken))
+    return render_template("login.html")
+
+
+@app.route("/register",methods=["GET","POST"])
+def register():
+    return render_template("register.html")
+
+
+@app.route("/error", methods=["GET"])
+def error():
+    return render_template("error.html")
 
 
 if __name__ == "__main__":
