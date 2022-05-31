@@ -48,7 +48,7 @@ def register():
             return redirect("localhost:5000")
         else:
             return render_template("systemMsg.html")
-    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
