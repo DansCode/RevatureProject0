@@ -33,7 +33,7 @@ def login():
             response.set_cookie("authToken", auth)
             return response
         else:
-            return render_template("systemMsg.html")
+            return render_template("systemMsg.html", message="error")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -47,7 +47,7 @@ def register():
         if dbUtil.register(usr, pwd):
             return redirect("localhost:5000")
         else:
-            return render_template("systemMsg.html")
+            return render_template("systemMsg.html", message="success")
 
 
 if __name__ == "__main__":
