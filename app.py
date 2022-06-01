@@ -35,7 +35,7 @@ def login():
         auth = dbUtil.authenticate(usr, pwd)
         if auth is not None:
             response = make_response(redirect("/"))
-            response.set_cookie("authToken", str(auth))
+            response.set_cookie("authToken", auth)
             return response
         else:
             return render_template("systemMsg.html", message="error logging in")
