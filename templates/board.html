@@ -5,6 +5,25 @@
     <title>Message Board</title>
 </head>
 <body>
+<div>
+    <p>
+        <a href="/logout">Log Out</a>
+    </p>
+</div>
+
+{% for post in posts %}
+<div>
+    <p>
+        {{post.author}}: {{post.message}}
+    </p>
+</div>
+{% endfor %}
+
+    <form action="/" method="post">
+        <label for="message">Your Message: </label>
+        <input type="text" id="message" name="message"><br>
+        <input type="submit" value="Post Message">
+    </form>
 
 </body>
 </html>

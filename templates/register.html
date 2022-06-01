@@ -1,21 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration page</title>
-</head>
-<body>
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+
+    <body>
 
     <p>Enter Desired Credentials</p>
-    <form action="localhost:5000/register">
+    <form action="/register" method="post">
 
         <label for="username">Username: </label>
-        <input type="text" id="username"><br>
+        <input type="text" id="username" name="username"><br>
         <label for="password">Password: </label>
-        <input type="text" id="password"><br>
+        <input type="text" id="password" name="password"><br>
         <input type="submit" value="Register">
 
     </form>
 
-</body>
+    <p>
+        <a href="/login">Login here</a>
+    </p>
+
+
+    </body>
+
 </html>

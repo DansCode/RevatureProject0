@@ -6,15 +6,19 @@
     <body>
 
     <p>Enter Credentials</p>
-    <form action="localhost:5000/login">
+    <form action="/login" method="post">
 
         <label for="username">Username: </label>
-        <input type="text" id="username"><br>
+        <input type="text" id="username" name="username"><br>
         <label for="password">Password: </label>
-        <input type="text" id="password"><br>
+        <input type="text" id="password" name="password"><br>
         <input type="submit" value="Log in">
 
     </form>
+
+    <p>
+        <a href="/register">Register here</a>
+    </p>
 
 
     </body>

@@ -14,8 +14,8 @@ def register(username, password):
 
 
 def getPosts():
-    return [BoardPost("dude", "today", "blah")]
+    return [BoardPost("dude", "blah")]
 
 
-def makePost():
+def makePost(auth, message):
     pass
