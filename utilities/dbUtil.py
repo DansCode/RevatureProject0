@@ -88,7 +88,7 @@ def getPosts():
     cursor = connection.cursor()
     output = []
 
-    qry = f"SELECT * FROM boardposts;"
+    qry = f"SELECT * FROM boardposts ORDER BY post_id;"
 
     try:
         cursor.execute(qry)
