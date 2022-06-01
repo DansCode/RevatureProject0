@@ -28,7 +28,7 @@ def checkToken(token):
             flag = True
 
     except psycopg2.DatabaseError:
-        pass
+        print("db error", flush=True)
 
     connection.close()
     return flag
@@ -49,9 +49,10 @@ def authenticate(username, password):
             output = hashstring
             qry2 = f"UPDATE users SET authtoken='{hashstring}' WHERE username='{username}';"
             cursor.execute(qry2)
+            connection.commit()
 
     except psycopg2.DatabaseError:
-        pass
+        print("db error", flush=True)
 
     connection.close()
     return output
@@ -70,10 +71,11 @@ def register(username, password):
         if len(list(cursor.fetchall())) == 0:
             qry2 = f"INSERT INTO users (username, password) VALUES ('{username}','{password}');"
             cursor.execute(qry2)
+            connection.commit()
             output = True
 
     except psycopg2.DatabaseError:
-        pass
+        print("db error", flush=True)
 
     connection.close()
     return output
@@ -92,10 +94,10 @@ def getPosts():
         results = list(cursor.fetchall())
         if len(results) > 0:
             for each in results:
-                output.append(BoardPost(each[0], each[1]))
+                output.append(BoardPost(each[1], each[2]))
 
     except psycopg2.DatabaseError:
-        pass
+        print("db error", flush=True)
 
     connection.close()
     return output
@@ -121,6 +123,7 @@ def makePost(token, message):
                 id = str(0)
                 qry2 = f"INSERT INTO boardposts (post_id,author,message) VALUES ('{id}','{username}','{message}');"
                 cursor.execute(qry2)
+                connection.commit()
             else:
                 qry2 = f"SELECT MAX(post_id) FROM boardposts;"
                 cursor.execute(qry2)
@@ -130,11 +133,12 @@ def makePost(token, message):
                 qry3 = f"INSERT INTO boardposts (post_id,author,message) VALUES ('{nextid}','{username}','{message}');"
 
                 cursor.execute(qry3)
+                connection.commit()
 
             flag = True
 
     except psycopg2.DatabaseError:
-        pass
+        print("db error", flush=True)
 
     connection.close()
     return flag
