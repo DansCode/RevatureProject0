@@ -44,8 +44,10 @@ def authenticate(username, password):
     try:
         cursor.execute(qry)
 
+        results = list(cursor.fetchall())
+
         hashstring = str(hash(float(time.time())+random.random()))
-        if len(list(cursor.fetchall())) == 1:
+        if len(results) == 1 and results[0][3] == 0:
             output = hashstring
             qry2 = f"UPDATE users SET authtoken='{hashstring}' WHERE username='{username}';"
             cursor.execute(qry2)
@@ -142,3 +144,26 @@ def makePost(token, message):
 
     connection.close()
     return flag
+
+
+def deactivate(token):
+    connection = getConnection()
+    cursor = connection.cursor()
+    output = None
+
+    qry = f"SELECT * FROM users WHERE authtoken='{token}';"
+
+    try:
+        cursor.execute(qry)
+        results = list(cursor.fetchall())
+
+        if len(results) == 1 and results[0][3] == 0:
+            qry2 = f"UPDATE users SET deactivated=1 WHERE authtoken='{token}';"
+            cursor.execute(qry2)
+            connection.commit()
+
+    except psycopg2.DatabaseError:
+        print("db error", flush=True)
+
+    connection.close()
+    return output

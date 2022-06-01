@@ -62,5 +62,18 @@ def logout():
     return response
 
 
+@app.route("/deactivate")
+def deactivate_account():
+    if "authToken" in request.cookies:
+        authToken = request.cookies.get("authToken")
+        if dbUtil.checkToken(authToken):
+            dbUtil.deactivate(authToken)
+            response = make_response(render_template("systemMsg.html", message="account deactivated"))
+            response.delete_cookie("authToken")
+            return response
+
+    return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
